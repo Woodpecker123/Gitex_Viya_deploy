@@ -1,18 +1,14 @@
 pipeline {
   agent any
+  environment {
+    KUBECONFIG = '/var/lib/jenkins/admin.conf'
+      }
   stages {
-    stage('checkversion') {
+    stage('Deploy') {
       steps {
-          sh 'python3 --version'
-          sh 'pip install sasctl'
+        sh 'kubectl -n sit apply -f site.yaml'
       }
     }
-     stage('run python') {
-      steps {
-       
-        sh 'python3 ModelPublish.py'
-      }
-    }
-
+    
   }
 }
